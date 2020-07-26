@@ -59,7 +59,6 @@ fun reconnect() {
             subscribeAlways<GroupMessageEvent> {
                 //scope.launch llc@{
                 run llc@{
-                    println("FAQ")
                     if (message.any { it is LightApp || it is ServiceMessage }) return@llc
 
                     if (group.id == groupId) {
