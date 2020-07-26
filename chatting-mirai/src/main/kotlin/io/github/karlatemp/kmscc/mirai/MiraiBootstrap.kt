@@ -63,7 +63,6 @@ fun reconnect() {
                     if (message.any { it is LightApp || it is ServiceMessage }) return@llc
 
                     if (group.id == groupId) {
-                        println("AF")
                         val name = Charsets.UTF_8.encode(sender.nameCardOrNick)
                         val message = Charsets.UTF_8.encode(message.contentToString())
                         outgoing.send(
@@ -84,11 +83,8 @@ fun reconnect() {
                                 }.dump()
                             )
                         )
-                        println("FW")
                         flush()
-                        println("FX")
                     }
-                    println("Done")
                 }
             }
             @Suppress("BlockingMethodInNonBlockingContext")
