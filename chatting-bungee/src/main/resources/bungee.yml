@@ -1,0 +1,4 @@
+name: KarMSChattingChannel-Bungee
+main: io.github.karlatemp.kmscc.bungee.BungeePlugin
+version: 1.0.0
+author: Karlatemp

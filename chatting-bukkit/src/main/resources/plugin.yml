@@ -1,0 +1,5 @@
+name: KarMSChattingChannel-Bukkit
+author: Karlatemp
+version: 1.0.0
+main: io.github.karlatemp.kmscc.bukkit.BukkitPlugin
+api-version: "1.13"

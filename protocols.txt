@@ -1,0 +1,91 @@
+========[       About      ]========
+
+全局: 发起连接需要 Authenticate-Token: XXXXXX 作为连接凭证
+
+========[     Protocol     ]========
+
+我们规定, 每个包都由一个unsigned short和可变长度的 payload 正文组成
+payload 拥有什么内容由具体协议决定
+
+我们规定, map有一个unsigned short表示此map的elements键值对数量,
+比如 00 00 表示一个空 map
+00 01 00 00 00 00 表示 {"" = ""}
+
+
+========[   /bungee-cord   ]========
+
+To Server:
+
+{ 玩家加入 BungeeCord 事件, id = 1
+| UTF8 | 玩家名
+| UTF8 | BungeeCord 标识
+}
+
+{ 玩家退出 BungeeCord 事件, id = 2
+| UTF8 | 玩家名
+| UTF8 | BungeeCord 标识
+}
+
+{ 服务器发送全局消息, id = 3
+| UTF8 | JSON Message
+}
+
+To Client:
+{ 玩家聊天事件, id = 1, comment = 只需要在控制台输出
+| UTF8 | 已经拼接好的消息内容
+}
+
+{ 玩家聊天事件(JSON), id = 2, comment = 直接广播到各个玩家
+| UTF8 | JSON 信息
+}
+
+
+========[ /standard-server ]========
+comment = 独立服务器连接
+
+To Server:
+{ 玩家加入服务器事件, id = 1
+| UTF8 | 玩家名
+}
+
+{ 玩家退出服务器事件, id = 2
+| UTF8 | 玩家名
+}
+
+{ 玩家聊天, id = 3
+| UTF8           | 玩家名
+| Map<UTF8,UTF8> | 聊天附加数据
+| UTF8           | 聊天信息(JSON)
+}
+
+{ 玩家死亡, id = 4
+| UTF8 | 死亡信息 (JSON)
+}
+
+{ 服务器发送全局消息, id = 5
+| UTF8 | JSON Message
+}
+
+To Client:
+{ 玩家聊天事件, id = 1, comment = 只需要在控制台输出
+| UTF8 | 已经拼接好的消息内容
+}
+
+{ 玩家聊天事件(JSON), id = 2, comment = 直接广播到各个玩家
+| UTF8 | JSON 信息
+}
+
+========[   /qq-group      ]========
+comment = 外部聊天同步广播通道
+
+To Server:
+{ 外部聊天通道输入, id = 1
+| UTF8           | 发送者名字
+| UTF8           | 聊天信息
+| Map<UTF8,UTF8> | 聊天附加数据
+}
+
+To Client:
+{ 玩家聊天事件, id = 1
+| UTF8 | 已经拼接好的消息内容
+}

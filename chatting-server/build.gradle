@@ -1,0 +1,30 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm'
+}
+
+dependencies {
+    def ktor_version = "1.1.5"
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+
+    implementation "io.ktor:ktor-websockets:$ktor_version"
+    implementation "io.ktor:ktor-server-cio:$ktor_version"
+    implementation "io.ktor:ktor-http-jvm:$ktor_version"
+
+    implementation 'org.spongepowered:configurate-hocon:3.6.1'
+
+    implementation project(':chatting-common')
+    // https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-coroutines-core
+    implementation group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-core', version: '1.3.8'
+    // https://mvnrepository.com/artifact/net.md-5/bungeecord-chat
+    implementation group: 'net.md-5', name: 'bungeecord-chat', version: '1.16-R0.3-SNAPSHOT'
+
+}
+
+compileKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+
+compileTestKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}

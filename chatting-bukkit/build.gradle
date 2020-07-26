@@ -1,0 +1,49 @@
+/*
+ * Copyright (c) 2018-2020 Karlatemp. All rights reserved.
+ * @author Karlatemp <karlatemp@vip.qq.com> <https://github.com/Karlatemp>
+ * @create 2020/07/25 17:53:30
+ *
+ * KarMSChattingChannel/KarMSChattingChannel/build.gradle
+ */
+
+plugins {
+    id 'org.jetbrains.kotlin.jvm'
+    id 'com.github.johnrengelman.shadow'
+}
+
+dependencies {
+    def ktor_version = "1.3.1"
+
+    // https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-coroutines-core
+    implementation group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-core', version: '1.3.8'
+
+    implementation "io.ktor:ktor-client-cio:$ktor_version"
+    implementation "io.ktor:ktor-client-websockets-jvm:$ktor_version"
+    implementation project(':chatting-common')
+
+    new File("G:/Tempx/spigot-native").listFiles().each { file ->
+        compileOnly files(file)
+    }
+
+    compileOnly 'com.mojang:brigadier:1.0.17'
+    implementation 'org.spigotmc:spigot-api:1.16.1-R0.1-SNAPSHOT'
+
+}
+
+shadowJar {
+    dependencyFilter.exclude { dep ->
+        switch ("${dep.moduleGroup}:${dep.moduleName}") {
+            case "org.yaml:snakeyaml":
+            case "com.google.code.gson:gson":
+            case "com.google.guava:guava":
+            case "net.md-5:bungeecord-chat":
+            case "commons-lang:commons-lang":
+            case "org.spigotmc:spigot-api":
+            case "org.slf4j:slf4j-api":
+                return true
+            default:
+                println("${dep.moduleGroup}:${dep.moduleName}")
+                return false
+        }
+    }
+}
